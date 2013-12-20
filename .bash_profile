@@ -17,5 +17,5 @@ alias gp="git push origin master"
 
 # ###################################
 # EXPORTS
-export HISTTIMEFORMAT="%d/%m/%y %T "
+export HISTTIMEFORMAT="%m/%d/%y %T "
 
