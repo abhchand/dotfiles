@@ -19,4 +19,10 @@ alias gp="git push origin master"
 # EXPORTS
 export HISTTIMEFORMAT="%m/%d/%y %T "
 export PS1="[\u@\h] \W > "
+# Java
+# TODO: Use jenv to manage mulitple java environments
+PATH=$PATH:/usr/local/java/jdk1.8.0_45/bin/
+JAVA_HOME="/usr/local/java/jdk1.8.0_45/"
+export PATH
+
 
