@@ -60,6 +60,3 @@ export PATH
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-# Source bashrc
-[[ -f $HOME/.bashrc ]] && source $HOME/.bashrc

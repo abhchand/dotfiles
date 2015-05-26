@@ -107,3 +107,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+
+# Source bash_profile
+[[ -f $HOME/.bash_profil ]] && source $HOME/.bash_profil
