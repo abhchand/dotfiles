@@ -62,7 +62,7 @@ alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && kil
 # EXPORTS
 
 export HISTTIMEFORMAT="%m/%d/%y %T "
-export PS1="[\u@\h] \W > "
+export PS1="[\T] \u:\W > "
 export CLICOLOR=1
 export JAVA_HOME="/usr/local/java/jdk1.8.0_45/"
 
