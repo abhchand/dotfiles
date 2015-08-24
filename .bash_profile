@@ -1,9 +1,35 @@
 # ###################################
+# GENERAL
+
+# Set platform for OS-specific functionality
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+  platform='linux'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+  platform='mac'
+fi
+
+# ###################################
 # ALIASES
 
-alias ls="ls -hlt --color"
-alias lsa="ls -hlta --color"
-alias tip="ls -hlt --color | head"
+#
+# Linux `ls` supports the --color flag because it's superior
+# If we are on a Mac/Darwin environment, achieve the same thing by exporting the color variables
+#
+
+if [[ "$platform" == 'linux' ]]; then
+  alias ls="ls -hlt --color"
+  alias lsa="ls -hlta --color"
+  alias tip="ls -hlt --color | head"
+elif [[ "$platform" == 'mac' ]]; then
+  alias ls="ls -hlt"
+  alias lsa="ls -hlta"
+  alias tip="ls -hlt | head"
+
+  export CLICOLOR=1
+  export LSCOLORS=ExFxCxDxBxegedabagacad
+fi
 
 alias bp="vi $HOME/.bash_profile"
 alias brc="vi $HOME/.bashrc"
