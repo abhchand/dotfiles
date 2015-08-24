@@ -11,6 +11,16 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
 fi
 
 # ###################################
+# GIT
+# Source auto-completion script
+[[ -s $HOME/git-completion.bash ]] && source $HOME/git-completion.bash
+# Grabs the current git branch. Will be used by the PS1 prompt set below
+function parse_git_branch {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "("${ref#refs/heads/}")"
+}
+
+# ###################################
 # ALIASES
 
 #
@@ -42,11 +52,6 @@ alias gs="git status"
 alias gp="git push origin master"
 alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
-# Grabs the current git branch. Will be used by the PS1 prompt set below
-function parse_git_branch {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "("${ref#refs/heads/}")"
-}
 
 # RVM
 alias rgl="rvm gemset list"
