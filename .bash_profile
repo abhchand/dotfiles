@@ -41,8 +41,8 @@ alias paste='xclip -selection clipboard -o'
 alias gc="git commit -a -m"
 alias gs="git status"
 alias gp="git push origin master"
-alias lol="log --graph --decorate --pretty=oneline --abbrev-commit"
-alias lola="log --graph --decorate --pretty=oneline --abbrev-commit --all"
+alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
+alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
 
 # RVM
 alias rgl="rvm gemset list"
