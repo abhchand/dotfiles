@@ -27,7 +27,6 @@ elif [[ "$platform" == 'mac' ]]; then
   alias lsa="ls -hlta"
   alias tip="ls -hlt | head"
 
-  export CLICOLOR=1
   export LSCOLORS=ExFxCxDxBxegedabagacad
 fi
 
@@ -43,6 +42,11 @@ alias gs="git status"
 alias gp="git push origin master"
 alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
+# Grabs the current git branch. Will be used by the PS1 prompt set below
+function parse_git_branch {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "("${ref#refs/heads/}")"
+}
 
 # RVM
 alias rgl="rvm gemset list"
@@ -62,9 +66,13 @@ alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && kil
 # EXPORTS
 
 export HISTTIMEFORMAT="%m/%d/%y %T "
-export PS1="[\T] \u:\W > "
 export CLICOLOR=1
 export JAVA_HOME="/usr/local/java/jdk1.8.0_45/"
+
+# PS1 Prompt
+YELLOW="\[\033[0;33m\]"
+GREEN="\[\033[0;32m\]"
+export PS1="[\T] \u:\W $YELLOW\$(parse_git_branch)$GREEN > "
 
 # ###################################
 # PATH
