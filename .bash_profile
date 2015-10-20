@@ -67,6 +67,9 @@ alias hal='ssh HAL.local'
 alias showHidden="defaults write com.apple.Finder AppleShowAllFiles TRUE && killall Finder"
 alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && killall Finder"
 
+# Glassbreakers
+alias gb="cd ~/git/glassbreakers/glassbreakers-prototype/ && rgu gb"
+
 # ###################################
 # EXPORTS
 
