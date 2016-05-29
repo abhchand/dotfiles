@@ -80,7 +80,7 @@ export JAVA_HOME="/usr/local/java/jdk1.8.0_45/"
 # PS1 Prompt
 YELLOW="\[\033[0;33m\]"
 GREEN="\[\033[0;32m\]"
-export PS1="[\T] \u:\W $YELLOW\$(parse_git_branch)$GREEN > "
+export PS1="[\T] \u:\W $YELLOW\$(parse_git_branch)$GREEN \n> "
 
 # ###################################
 # PATH
