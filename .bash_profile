@@ -62,6 +62,9 @@ alias json="python -mjson.tool"
 
 # SSH
 alias hal='ssh HAL.local'
+# Enabling Wake-on-LAN: kodi.wiki/view/HOW-TO:Set_up_Wake-on-LAN_for_Ubuntu
+alias wake_hal=`wolcmd C8:CB:B8:C7:CD:B0 192.168.1.216 255.255.255.0 4343`
+alias wake_hal_ssh=`wake_hal; hal`
 
 # OSX
 alias showHidden="defaults write com.apple.Finder AppleShowAllFiles TRUE && killall Finder"
