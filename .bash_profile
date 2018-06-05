@@ -20,6 +20,10 @@ function parse_git_branch {
   echo "("${ref#refs/heads/}")"
 }
 
+function changes_since {
+  git diff $(git merge-base $1 HEAD)..HEAD
+}
+
 # ###################################
 # ALIASES
 
@@ -53,6 +57,10 @@ alias gp="git push origin master"
 alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
 
+# Postgres
+alias pg_start="pg_ctl -D /usr/local/var/postgres9.6 -l /usr/local/var/postgres/server.log start"
+alias pg_stop="pg_ctl -D /usr/local/var/postgres9.6 stop -s -m fast"
+
 # RVM
 alias rgl="rvm gemset list"
 alias rgu="rvm gemset use"
@@ -71,7 +79,7 @@ alias showHidden="defaults write com.apple.Finder AppleShowAllFiles TRUE && kill
 alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && killall Finder"
 
 # Glassbreakers
-alias gb="cd ~/git/glassbreakers/glassbreakers-prototype/ && rgu gb"
+alias gb="cd ~/git/glassbreakers/glassbreakers-prototype/"
 
 # ###################################
 # EXPORTS
@@ -80,10 +88,14 @@ export HISTTIMEFORMAT="%m/%d/%y %T "
 export CLICOLOR=1
 export JAVA_HOME="/usr/local/java/jdk1.8.0_45/"
 
+# Python
+export PYENV_ROOT="$HOME/.pyenv"
+export FLASK_DEBUG=1
+
 # PS1 Prompt
 YELLOW="\[\033[0;33m\]"
 GREEN="\[\033[0;32m\]"
-export PS1="[\T] \u:\W $YELLOW\$(parse_git_branch)$GREEN \n> "
+export PS1="\W $YELLOW\$(parse_git_branch)$GREEN > "
 
 # ###################################
 # PATH
@@ -94,6 +106,8 @@ PATH=$PATH:/usr/local/java/jdk1.8.0_45/bin/
 PATH=$PATH:/usr/local/mysql/bin
 # RVM
 PATH=$PATH:$HOME/.rvm/bin
+# pyenv
+PATH=$PYENV_ROOT/bin:$PATH
 # User specific /bin folder
 PATH=$PATH:$HOME/bin
 
@@ -105,3 +119,35 @@ export PATH
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# Initialize pyenv
+eval "$(pyenv init -)"
+
+# Exercism auto-complete
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+  . ~/.config/exercism/exercism_completion.bash
+fi
+
+# Rails - only run changed specs
+function run_changed_specs {
+  arg=$1
+  branch=${arg:-master}
+
+  files=$(git diff $branch..HEAD --name-only | grep spec | grep -v factories | grep -v spec_helper.rb | grep -v spec/support)
+
+  echo "==="
+  echo "Running files changed since $branch:"
+  echo $files
+  echo ""
+
+  rspec $(echo $files | tr '\n' ' ')
+}
+
+
+export RELEASE_BRANCH=r2018.04.09
+alias gcr="git checkout $RELEASE_BRANCH"
+alias gpr="git pull origin $RELEASE_BRANCH"
+alias gcm="git checkout master"
+alias gcd="git checkout development"
+
+
