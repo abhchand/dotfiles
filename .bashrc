@@ -110,4 +110,4 @@ fi
 
 
 # Source bash_profile
-[[ -f $HOME/.bash_profil ]] && source $HOME/.bash_profil
+[[ -f $HOME/.bash_profile ]] && source $HOME/.bash_profile
