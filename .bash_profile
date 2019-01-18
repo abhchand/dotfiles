@@ -169,7 +169,7 @@ fi
 
 if [[ "$platform" == 'mac' ]]; then
   # combine_pdfs output.pdf input1.pdf input2.pdf ...
-  alias combine_pdfs="/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py"
+  alias combine_pdfs="/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py -o"
 fi
 
 alias bp="vi $HOME/.bash_profile"
