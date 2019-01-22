@@ -147,7 +147,7 @@ class SouthwestCheckInTask
   def validate_environment
     logger.debug("Checking if ENV variables are set")
 
-    if !confirmation || !fname || !lname || !recipients
+    if !confirmation || !fname || !lname
       logger.fatal("Please set `SWA_CONFIRMATION` and `SWA_NAME`")
       exit(1)
     end
