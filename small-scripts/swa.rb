@@ -138,7 +138,7 @@ class SouthwestCheckInTask
   def email_subject
     @email_subject ||=
       if @success
-        "Southwest Check In Succesful for #{fname}"
+        "Southwest Check In Completed for #{fname}"
       else
         "Southwest Check In Failed for #{fname}"
       end
