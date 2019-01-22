@@ -2,28 +2,56 @@
 
 # Automates the check-in process for Southwest flights
 #
-# Uses a headless chrome browser powered by `chromedriver` and emails you
-# a screenshot of the result (hopefully a successful check-in)
+# Uses a headless chrome browser powered by `chromedriver` and optionally emails
+# you a screenshot of the result (hopefully a successful check-in)
 #
 # === Dependencies
 #
-#   1. Ruby
+#   1. Ruby (heavily recommend installing Ruby with RVM: rvm.io)
+#
 #   2. `selenium-webdriver` ruby gem. Install with `gem install selenium-webdriver`
-#   3. `chromdriver`. On OSX you can `brew install chromedriver`. On Debian Linux
-#      it's slightly more involved. See: https://christopher.su/2015/selenium-chromedriver-ubuntu/
-#   4. `mailx` - Installed by default on OSX. On debian linux you can `sudo apt-get install heirloom-mailx`
+#
+#   3. `chromdriver`
+#       On Debian Linux: https://christopher.su/2015/selenium-chromedriver-ubuntu/
+#
+#   4. `sendemail`
+#       Project: http://caspian.dotconf.net/menu/Software/SendEmail
+#       On Debian Linux install with
+#         apt-get install libio-socket-ssl-perl libnet-ssleay-perl sendemail
+#
+# === Running
+#
+# The script requires your name and Southwest confirmation code to run.
+#
+#     SWA_CONFIRMATION="T9MUNA" SWA_NAME="Darth Vadar" path/to/swa.rb
+#
+# === Mailing the results
+#
+# You can optionally specify SMTP email information to have the results
+# emailed back to you (success or failure). Requires specifying all the
+# SWA_EMAIL_* configs
+#
+# NOTE: This step requires SMTP credentials which could be exposed in your
+# servers command history. It is recommended that you use a junkmail
+# account (e.g. Yahoo) as the sender and not your real account.
+#
+# - SMTP Server: Yahoo uses `smtp.mail.yahoo.com:587` and Gmail uses
+#   `smtp.gmail.com:587`
+# - Username: The full email used to log in. Will be the email sender.
+# - Password: Your email login password
+# - Recipients: Space separate list of recipients
+#
+#     SWA_CONFIRMATION="T9MUNA" \
+#       SWA_NAME="Darth Vadar" \
+#       SWA_EMAIL_SERVER="smtp.foo.com:587" \
+#       SWA_EMAIL_USER="from@example.com" \
+#       SWA_EMAIL_PASSWORD="blahBlah" \
+#       SWA_EMAIL_RECIPIENTS="person1@example.com person2@example.com" \
+#       path/to/swa.rb
 #
 # === Scheduling
 #
-# The script requires your name, Southwest confirmation code, and email to run
-# You can use `cron` on any other scheduling utility to run this script
-#
-#
-#     SWA_CONFIRMATION="abcde" \
-#       SWA_FIRST_NAME="Darth" \
-#       SWA_LAST_NAME="Vadar" \
-#       SWA_EMAIL_RECIPIENTS="foo@example.com" \
-#       path/to/swa.rb
+#  You can use `cron` on any other scheduling utility to run this script
 
 require "selenium-webdriver"
 
@@ -36,7 +64,7 @@ class SouthwestCheckInTask
     validate_environment
 
     check_for_chromedriver
-    check_for_mailx
+    check_for_sendemail
     setup_driver
     setup_headless_window
   end
@@ -78,27 +106,47 @@ class SouthwestCheckInTask
   private
 
   def confirmation
-    @confirmation ||= ENV["SWA_CONFIRMATION"]
+    @confirmation ||= ENV["SWA_CONFIRMATION"]&.upcase
   end
 
   def fname
-    @fname ||= ENV["SWA_FIRST_NAME"]
+    @fname ||= ENV["SWA_NAME"]&.split(" ", 2)&.first
   end
 
   def lname
-    @lname ||= ENV["SWA_LAST_NAME"]
+    @lname ||= ENV["SWA_NAME"]&.split(" ", 2)&.last
   end
 
-  def recipients
-    @recipients ||= ENV["SWA_EMAIL_RECIPIENTS"]
+  def email_server
+    @email_server ||= ENV["SWA_EMAIL_SERVER"]
+  end
+
+  def email_sender
+    @email_sender ||= ENV["SWA_EMAIL_USER"]
+  end
+
+  def email_password
+    @email_password ||= ENV["SWA_EMAIL_PASSWORD"]
+  end
+
+  def email_recipients
+    @email_recipients ||= ENV["SWA_EMAIL_RECIPIENTS"]&.gsub(/,/, " ")
+  end
+
+  def email_subject
+    @email_subject ||=
+      if @success
+        "Southwest Check In Succesful for #{fname}"
+      else
+        "Southwest Check In Failed for #{fname}"
+      end
   end
 
   def validate_environment
     logger.debug("Checking if ENV variables are set")
 
     if !confirmation || !fname || !lname || !recipients
-      logger.fatal("Please set `SWA_CONFIRMATION`, `SWA_FIRST_NAME`, "\
-        "`SWA_LAST_NAME`, `SWA_EMAIL_RECIPIENTS`")
+      logger.fatal("Please set `SWA_CONFIRMATION` and `SWA_NAME`")
       exit(1)
     end
   end
@@ -112,11 +160,11 @@ class SouthwestCheckInTask
     end
   end
 
-  def check_for_mailx
-    logger.debug("Checking if `mailx` is available")
+  def check_for_sendemail
+    logger.debug("Checking if `sendemail` is available")
 
-    if !`which mailx`
-      logger.fatal("Can not find `mailx`")
+    if !`which sendemail`
+      logger.fatal("Can not find `sendemail`")
       exit(1)
     end
   end
@@ -177,12 +225,32 @@ class SouthwestCheckInTask
     driver.save_screenshot(@screenshot_filepath) if driver
   end
 
-  def send_mail
-    subject = @success ? "Successfully Checked In" : "Attempted Checking In"
-    cmd = "cat #{@logger_filepath} | mailx -s \"#{subject}\" #{recipients}"
+  def send_mail?
+    email_server && email_sender && email_password && email_recipients
+  end
 
-    logger.debug("mailx command: '#{cmd}'")
+  def send_mail
+    return unless send_mail?
+
+    cmd = [
+      "sendemail",
+      "-f", email_sender,
+      "-t", email_recipients,
+      "-u", email_subject,
+      "-m", File.read(@logger_filepath),
+      "-o", "tls=yes",
+      "-s", email_server,
+      "-xu", email_sender,
+      "-xp", quote(email_password),
+      "-a", @screenshot_filepath
+    ].join(" ")
+
+    logger.debug("sendemail command: '#{cmd}'")
     `#{cmd}`
+  end
+
+  def quote(str)
+    "\"#{str}\""
   end
 end
 
