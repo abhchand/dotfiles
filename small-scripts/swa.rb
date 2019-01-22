@@ -55,6 +55,7 @@
 #  You can use `cron` on any other scheduling utility to run this script
 
 require "selenium-webdriver"
+require "shellwords"
 
 class SouthwestCheckInTask
   attr_accessor :logger, :driver, :config
@@ -238,11 +239,11 @@ class SouthwestCheckInTask
       "-f", email_sender,
       "-t", email_recipients,
       "-u", email_subject,
-      "-m", File.read(@logger_filepath),
+      "-m", escape(File.read(@logger_filepath)),
       "-o", "tls=yes",
       "-s", email_server,
       "-xu", email_sender,
-      "-xp", quote(email_password),
+      "-xp", escape(email_password),
       "-a", @screenshot_filepath
     ].join(" ")
 
@@ -250,8 +251,8 @@ class SouthwestCheckInTask
     `#{cmd}`
   end
 
-  def quote(str)
-    "\"#{str}\""
+  def escape(str)
+    Shellwords.escape(str)
   end
 end
 
