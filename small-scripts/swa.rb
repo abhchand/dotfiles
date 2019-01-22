@@ -11,13 +11,14 @@
 #
 #   2. `selenium-webdriver` ruby gem. Install with `gem install selenium-webdriver`
 #
-#   3. `chromdriver`
-#       On Debian Linux: https://christopher.su/2015/selenium-chromedriver-ubuntu/
+#   3. `chromedriver`
+#       Debian Linux: https://christopher.su/2015/selenium-chromedriver-ubuntu
+#       OSX: `brew install chromedriver`
 #
 #   4. `sendemail`
 #       Project: http://caspian.dotconf.net/menu/Software/SendEmail
-#       On Debian Linux install with
-#         apt-get install libio-socket-ssl-perl libnet-ssleay-perl sendemail
+#       Debian Linux: `apt-get install libio-socket-ssl-perl libnet-ssleay-perl sendemail`
+#       OSX: `brew install sendemail`
 #
 # === Running
 #
