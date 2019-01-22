@@ -94,6 +94,8 @@ class SouthwestCheckInTask
 
       sleep 3.0
 
+      raise "Southwest Application Error" if page_has_error?
+
       # There's no id for this button element, but for now it's the only
       # `submit-button` class on the page. Fingers crossed it stays that way.
       submit = driver.find_element(:class, "submit-button")
@@ -216,6 +218,13 @@ class SouthwestCheckInTask
   def visit(url, log: true)
     logger.debug("Visiting #{url}") if log
     driver.navigate.to(url)
+  end
+
+  def page_has_error?
+    # In several cases the Southwest website returns a page with an
+    # error flash/div at the top. This occurs when the check in doesn't exist,
+    # is too early, has already passed, etc...
+    driver.find_elements(class: "message_error").any?
   end
 
   def capture_screenshot!
