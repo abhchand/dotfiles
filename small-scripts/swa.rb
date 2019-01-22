@@ -236,7 +236,7 @@ class SouthwestCheckInTask
 
     cmd = [
       "sendemail",
-      "-f", email_sender,
+      "-f", "-f", "\"SWA Check In Script <#{email_sender}>\"",
       "-t", email_recipients,
       "-u", email_subject,
       "-m", escape(File.read(@logger_filepath)),
