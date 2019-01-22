@@ -243,12 +243,16 @@ class SouthwestCheckInTask
   def send_mail
     return unless send_mail?
 
+    body = "This email was generated automatically by a bot\n" +
+      "Please see attached results\n\n" +
+      File.read(@logger_filepath)
+
     cmd = [
       "sendemail",
       "-f", "-f", "\"SWA Check In Script <#{email_sender}>\"",
       "-t", email_recipients,
       "-u", email_subject,
-      "-m", escape(File.read(@logger_filepath)),
+      "-m", escape(body),
       "-o", "tls=yes",
       "-s", email_server,
       "-xu", email_sender,
