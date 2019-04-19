@@ -122,7 +122,10 @@ RESET_COLOR="\[\033[00m\]"
 export PS1="$GREEN_BOLD\u@\h$RESET_COLOR:$BLUE\w$RESET_COLOR $YELLOW$(parse_git_branch)$GREEN $ $RESET_COLOR"
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home)
+if [ -f /usr/libexec/java_home ];
+then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi;
 
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
@@ -205,8 +208,8 @@ alias json="python -mjson.tool"
 # SSH
 alias hal='ssh HAL.local'
 # Enabling Wake-on-LAN: kodi.wiki/view/HOW-TO:Set_up_Wake-on-LAN_for_Ubuntu
-alias wake_hal=`wolcmd C8:CB:B8:C7:CD:B0 192.168.1.216 255.255.255.0 4343`
-alias wake_hal_ssh=`wake_hal; hal`
+alias wake_hal="wolcmd C8:CB:B8:C7:CD:B0 192.168.1.216 255.255.255.0 4343"
+alias wake_hal_ssh="wake_hal; hal"
 
 # OSX
 alias showHidden="defaults write com.apple.Finder AppleShowAllFiles TRUE && killall Finder"
@@ -221,4 +224,4 @@ alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && kil
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Initialize pyenv
-eval "$(pyenv init -)"
+[ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
