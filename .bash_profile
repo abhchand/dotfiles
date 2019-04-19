@@ -116,7 +116,7 @@ export CLICOLOR=1
 # PS1 Prompt
 YELLOW="\[\033[0;33m\]"
 GREEN="\[\033[0;32m\]"
-export PS1="\W $YELLOW\$(parse_git_branch)$GREEN α "
+export PS1="\u@\h:\w $YELLOW\$(parse_git_branch)$GREEN α "
 
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home)
