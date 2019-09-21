@@ -38,6 +38,17 @@ function stylelint_all_since {
   done
 }
 
+# Scan ports on OSX
+function listening {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
+
 # Create thumbnails
 function thumbify {
   YELLOW='\033[0;33m'
@@ -118,6 +129,10 @@ YELLOW="\[\033[0;33m\]"
 GREEN="\[\033[0;32m\]"
 export PS1="\W $YELLOW\$(parse_git_branch)$GREEN α "
 
+# AWS
+export AWS_PROFILE="Developer"
+export AWS_DEFAULT_REGION=us-east-1
+
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home)
 
@@ -125,8 +140,19 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 export PYENV_ROOT="$HOME/.pyenv"
 export FLASK_DEBUG=1
 
+# Go
+export GOPATH="$HOME/git/go"
+export PATH=$PATH:/usr/local/go/bin
+
+# Postgres 9.5
+export PATH=$PATH://usr/local/opt/postgresql@9.5/bin
+
 # Git
 export GIT_PROJECTS_DIR="$HOME/git/abhishek"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+
 
 # ###################################
 # PATH
@@ -174,6 +200,7 @@ fi
 
 alias bp="vi $HOME/.bash_profile"
 alias brc="vi $HOME/.bashrc"
+alias sbp="source $HOME/.bash_profile"
 
 alias copy='xclip -selection clipboard'
 alias paste='xclip -selection clipboard -o'
@@ -187,10 +214,29 @@ alias gs="git status"
 alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
 
+# Redis
+alias redis-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
+alias redis-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
 
-# Postgres
-alias pg_start="pg_ctl -D /usr/local/var/postgres9.6 -l /usr/local/var/postgres/server.log start"
-alias pg_stop="pg_ctl -D /usr/local/var/postgres9.6 stop -s -m fast"
+# RabbitMQ
+alias rabbitmq-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist"
+alias rabbitmq-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist"
+
+# Postgres 9.6
+# homebrew doesn't symlink the bin/ folder into /usr/local/bin
+# because it's a specific version (@9.6) instead of the latest
+# Add it to the PATH manually to access `psql`, `pg_ctl`, etc...
+# export PATH=$PATH:/usr/local/opt/postgresql@9.6/bin
+alias pg-start="pg_ctl -D /usr/local/var/postgresql\@9.5 start"
+alias pg-stop="pg_ctl -D /usr/local/var/postgresql\@9.5 stop"
+
+# Postgres 9.5
+# alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql@9.5.plist"
+# alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql@9.5.plist"
+
+# Postgres 9.6
+# alias pg_start="pg_ctl -D /usr/local/var/postgres9.6 -l /usr/local/var/postgres/server.log start"
+# alias pg_stop="pg_ctl -D /usr/local/var/postgres9.6 stop -s -m fast"
 
 # RVM
 alias rgl="rvm gemset list"
@@ -202,13 +248,16 @@ alias json="python -mjson.tool"
 # SSH
 alias hal='ssh HAL.local'
 # Enabling Wake-on-LAN: kodi.wiki/view/HOW-TO:Set_up_Wake-on-LAN_for_Ubuntu
-alias wake_hal=`wolcmd C8:CB:B8:C7:CD:B0 192.168.1.216 255.255.255.0 4343`
-alias wake_hal_ssh=`wake_hal; hal`
+# alias wake_hal=`wolcmd C8:CB:B8:C7:CD:B0 192.168.1.216 255.255.255.0 4343`
+# alias wake_hal_ssh=`wake_hal; hal`
 
 # OSX
 alias showHidden="defaults write com.apple.Finder AppleShowAllFiles TRUE && killall Finder"
 alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && killall Finder"
 
+# CallRail
+alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
+alias cr="cd $HOME/git/callrail/callrail"
 
 # ###################################
 # MISC.
@@ -217,5 +266,18 @@ alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && kil
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
+# Load NVM into a shell session *as a function*
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# [CallRail] Load .dockercfg
+# [[ -s "$HOME/.dockercfg" ]] && \. "$HOME/.dockercfg"
+
 # Initialize pyenv
 eval "$(pyenv init -)"
+export PATH=$PATH://usr/local/opt/postgresql@9.5/bin
+
+alias redis-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
+alias redis-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
+alias rabbitmq-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist"
+alias rabbitmq-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist"
+
