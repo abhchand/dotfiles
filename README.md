@@ -1,4 +1,4 @@
-HAL_configs
+dotfiles
 ===========
 
-dot-files and other configurations for HAL
+dotfiles and other configurations for abhchand.me servers

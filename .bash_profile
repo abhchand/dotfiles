@@ -126,15 +126,21 @@ export CLICOLOR=1
 
 # PS1 Prompt
 YELLOW="\[\033[0;33m\]"
-GREEN="\[\033[0;32m\]"
-export PS1="\W $YELLOW\$(parse_git_branch)$GREEN α "
+GREEN_BOLD="\[\033[01;32m\]"
+BLUE="\[\033[01;34m\]"
+RESET_COLOR="\[\033[00m\]"
+
+export PS1="$GREEN_BOLD\u@\h$RESET_COLOR:$BLUE\w$RESET_COLOR $YELLOW$(parse_git_branch)$GREEN $ $RESET_COLOR"
 
 # AWS
 export AWS_PROFILE="Developer"
 export AWS_DEFAULT_REGION=us-east-1
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home)
+if [ -f /usr/libexec/java_home ];
+then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi;
 
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
@@ -273,11 +279,10 @@ alias cr="cd $HOME/git/callrail/callrail"
 # [[ -s "$HOME/.dockercfg" ]] && \. "$HOME/.dockercfg"
 
 # Initialize pyenv
-eval "$(pyenv init -)"
+[ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
 export PATH=$PATH://usr/local/opt/postgresql@9.5/bin
 
 alias redis-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
 alias redis-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
 alias rabbitmq-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist"
 alias rabbitmq-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist"
-
