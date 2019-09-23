@@ -84,8 +84,9 @@ set undodir=~/.vim/undodir
 let &t_SI = "\e[5 q"    " Blinking vertical cursor
 let &t_EI = "\e[5 q"    " Blinding vertical cursor
 
-let NERDTreeMinimalUI = 1  " NERDTree Minimal UI
-let NERDTreeDirArrows = 1  " NERDTREE Directional Arrows
+let NERDTreeMinimalUI  = 1  " NERDTree Minimal UI
+let NERDTreeDirArrows  = 1  " NERDTREE Directional Arrows
+let NERDTreeShowHidden = 1   " Show hidden files
 
 " === Mappings
 
