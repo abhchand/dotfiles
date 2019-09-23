@@ -98,6 +98,11 @@ function thumbify {
   convert $FILEPATH -auto-orient -thumbnail $SIZEx$SIZE -unsharp 0x.5 $thumbname
 }
 
+# Get into docker shell
+function de() {
+  docker exec -i -t $@ /bin/bash
+}
+
 #
 # GIT
 #
