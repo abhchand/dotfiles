@@ -271,6 +271,10 @@ alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
 alias cr="cd $HOME/git/callrail/callrail"
 
 # Docker
+alias dp="docker ps"
+alias dpa="docker ps -a"
+alias di="docker images"
+alias dia="docker images -a"
 alias drmd="docker rmi -f $(docker images -f "dangling=true" -q)" # Remove dangling images
 
 # ###################################
