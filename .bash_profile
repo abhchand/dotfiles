@@ -270,6 +270,9 @@ alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && kil
 alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
 alias cr="cd $HOME/git/callrail/callrail"
 
+# Docker
+alias drmd="docker rmi -f $(docker images -f "dangling=true" -q)" # Remove dangling images
+
 # ###################################
 # MISC.
 # ###################################
