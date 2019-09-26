@@ -135,7 +135,7 @@ GREEN_BOLD="\[\033[01;32m\]"
 BLUE="\[\033[01;34m\]"
 RESET_COLOR="\[\033[00m\]"
 
-export PS1="$GREEN_BOLD\u@\h$RESET_COLOR:$BLUE\w$RESET_COLOR $YELLOW$(parse_git_branch)$GREEN $ $RESET_COLOR"
+export PS1="${GREEN_BOLD}\u@\h${RESET_COLOR}:${BLUE}\w${RESET_COLOR} ${YELLOW}\$(parse_git_branch)${GREEN} $ ${RESET_COLOR}"
 
 # AWS
 export AWS_PROFILE="Developer"
