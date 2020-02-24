@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# RSpec - run all changes since `branch`
+function run_changed_specs {
+  arg=$1
+  branch=${arg:-master}
+
+  files=$(git diff $branch..HEAD --name-only | grep spec | grep -v factories | grep -v spec_helper.rb | grep -v spec/support)
+
+  echo "==="
+  echo "Running files changed since $branch:"
+  echo $files
+  echo ""
+
+  rspec $(echo $files | tr '\n' ' ')
+}
+
+PATH=$PATH:$HOME/.rvm/bin
+
+alias rgl="rvm gemset list"
+alias rgu="rvm gemset use"
+
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+export PATH

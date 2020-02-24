@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -f /usr/libexec/java_home ];
+then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi;
+
+PATH=$PATH:/usr/local/java/jdk1.8.0_45/bin/
+
+export PATH

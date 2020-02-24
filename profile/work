@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# CallRail
+export AWS_PROFILE="Developer"
+export AWS_DEFAULT_REGION=us-east-1
+
+alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
+alias cr="cd $HOME/git/callrail/callrail"
+alias ghs="cd $HOME/git/abhishek/github-scripts"

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Source auto-completion script
+[[ -s $HOME/git-completion.bash ]] && source $HOME/git-completion.bash
+
+# View all changes since `ref`
+function changes_since {
+  git diff $(git merge-base $1 HEAD)..HEAD
+}
+
+alias gc="git commit -a -m"
+alias gcm="git checkout master"
+alias gd="git diff"
+alias gdc="git diff --cached"
+alias gp='git push origin $(git rev-parse --abbrev-ref HEAD)'
+alias gs="git status"
+alias gcp="git cherry-pick"
+alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
+alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"

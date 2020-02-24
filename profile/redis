@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+alias redis-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"
+alias redis-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.redis.plist"

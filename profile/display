@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Grabs the current git branch.
+function parse_git_branch {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "("${ref#refs/heads/}")"
+}
+
+export HISTTIMEFORMAT="%m/%d/%y %T "
+export CLICOLOR=1
+
+# Set PS1 Prompt
+
+YELLOW="\[\033[0;33m\]"
+GREEN_BOLD="\[\033[01;32m\]"
+PURPLE_BOLD="\[\033[01;35m\]"
+BLUE="\[\033[01;34m\]"
+RESET_COLOR="\[\033[00m\]"
+
+if [[ "$platform" == 'linux' ]]; then
+  BOLD_COLOR=$PURPLE_BOLD
+elif [[ "$platform" == 'mac' ]]; then
+  BOLD_COLOR=$GREEN_BOLD
+fi
+
+export PS1="${BOLD_COLOR}\u@\h${RESET_COLOR}:${BLUE}\w${RESET_COLOR} ${YELLOW}\$(parse_git_branch)${GREEN} $ ${RESET_COLOR}"

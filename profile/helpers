@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+# Stylelint all changes since `ref`
+function stylelint_all_since {
+  for FILE in $(git diff $(git merge-base $1 HEAD)..HEAD --name-only | grep scss)
+  do
+    echo "Linting $FILE ..."
+    node_modules/.bin/stylelint --fix $FILE
+  done
+}
+
+# Create thumbnails
+function thumbify {
+  YELLOW='\033[0;33m'
+  NOCOLOR='\033[0m'
+
+  DEFAULT_SIZE=250
+  FILEPATH=$1
+  ARG=$2
+  SIZE=${ARG:-250}
+
+  USAGE="
+    ${YELLOW}
+    Create thumbnail images \n
+    Usage:\n
+    \tthumbify file [dimension]\n
+    \n
+        \tfile\t\tfile to create thumbnail from\n
+        \tdimension\tmaximum dimension (in pixels) of height or width. Aspect\n
+                    \t\t\tratio will be preserved. (Default: $DEFAULT_SIZE px)\n
+    \n
+    Examples:\n
+    \n
+      \tthumbify file.jpg\n
+      \tthumbify ./path/to/file.jpg\n
+      \tthumbify file.jpg 350\n
+    ${NOCOLOR}"
+
+
+  if [ -z "$1" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    echo -e $USAGE
+    return
+  fi
+
+  if ! [ -x "$(command -v convert)" ]; then
+    echo 'Error: Command `convert` not found. Are you sure ImageMagick is installed?' >&2
+    return
+  fi
+
+  # Create thumnail filename
+  #  ./path/to/file.jpg -> ./path/to/file-thumb.jpg
+  filename=$(basename -- "$FILEPATH")
+  extension="${filename##*.}"
+  thumbname=`echo $FILEPATH | sed "s/.$extension/-thumb.$extension/"`
+
+  # Create thumbnail
+  echo "Creating $thumbname with max dimension $SIZE px"
+  convert $FILEPATH -auto-orient -thumbnail $SIZEx$SIZE -unsharp 0x.5 $thumbname
+}
+
+# OSX Specific
+if [[ "$platform" == 'mac' ]]; then
+
+  # Scan ports on OSX
+  function listening {
+      if [ $# -eq 0 ]; then
+          sudo lsof -iTCP -sTCP:LISTEN -n -P
+      elif [ $# -eq 1 ]; then
+          sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+      else
+          echo "Usage: listening [pattern]"
+      fi
+  }
+
+  # combine_pdfs output.pdf input1.pdf input2.pdf ...
+  alias combine_pdfs="/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py -o"
+
+fi

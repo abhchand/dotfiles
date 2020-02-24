@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Postgres 9.5
+export PATH=$PATH://usr/local/opt/postgresql@9.5/bin
+
+# Postgres 9.6
+# homebrew doesn't symlink the bin/ folder into /usr/local/bin
+# because it's a specific version (@9.6) instead of the latest
+# Add it to the PATH manually to access `psql`, `pg_ctl`, etc...
+# export PATH=$PATH:/usr/local/opt/postgresql@9.6/bin
+alias pg-start="pg_ctl -D /usr/local/var/postgresql\@9.5 start"
+alias pg-stop="pg_ctl -D /usr/local/var/postgresql\@9.5 stop"
+
+# Postgres 9.5
+# alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql@9.5.plist"
+# alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql@9.5.plist"
+
+# Postgres 9.6
+# alias pg_start="pg_ctl -D /usr/local/var/postgres9.6 -l /usr/local/var/postgres/server.log start"
+# alias pg_stop="pg_ctl -D /usr/local/var/postgres9.6 stop -s -m fast"
+
+export PATH
