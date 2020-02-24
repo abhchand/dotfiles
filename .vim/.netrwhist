@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/Users/abhishek/.rbenv'
-let g:netrw_dirhist_2='/Users/abhishek'
-let g:netrw_dirhist_3='/Users/abhishek/git/abhishek/reely'
-let g:netrw_dirhist_4='/Users/abhishek/git/abhishek/girder'
