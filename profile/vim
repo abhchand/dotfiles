@@ -3,7 +3,7 @@
 # Installs Vundle and it's plugins
 function setup_vim {
   echo "Cloning vundle into $SRC_DIR/.vim/bundle ..."
-  git clone https://github.com/VundleVim/Vundle.vim.git "$SRC_DIR/.vim/bundle"
+  git clone https://github.com/VundleVim/Vundle.vim.git "$SRC_DIR/.vim/bundle/Vundle.vim"
   
   echo "Running PlugInstall ..."
   vim +PluginInstall +qall
