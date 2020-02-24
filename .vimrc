@@ -8,7 +8,8 @@ let path='$HOME/.vim/bundle'
 
 call vundle#begin('$HOME/.vim/bundle')
 
-Plugin 'VundleVim/Vundle.vim' " required
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'itchyny/lightline.vim'
 Plugin 'itchyny/vim-gitbranch'
