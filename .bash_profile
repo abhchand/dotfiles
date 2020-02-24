@@ -219,9 +219,11 @@ alias paste='xclip -selection clipboard -o'
 # Git
 alias gc="git commit -a -m"
 alias gcm="git checkout master"
-alias gd="cd $GIT_PROJECTS_DIR"
+alias gd="git diff"
+alias gdc="git diff --cached"
 alias gp='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gs="git status"
+alias gcp="git cherry-pick"
 alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
 
@@ -269,6 +271,7 @@ alias hideHidden="defaults write com.apple.Finder AppleShowAllFiles FALSE && kil
 # CallRail
 alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
 alias cr="cd $HOME/git/callrail/callrail"
+alias ghs="cd $HOME/git/abhishek/github-scripts"
 
 # Docker
 alias dp="docker ps"
