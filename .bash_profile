@@ -6,8 +6,17 @@ platform='unknown'
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
   platform='linux'
+
+  REL_PATH=`readlink -f $HOME/.bash_profile`
+  SRC_DIR=`dirname $REL_PATH`
 elif [[ "$unamestr" == 'Darwin' ]]; then
   platform='mac'
+
+  # OSX doesn't support `-f` flag
+  # Working around it is non-trivial
+  # See: https://stackoverflow.com/q/1055671/2490003
+  REL_PATH=`readlink $HOME/.bash_profile`
+  SRC_DIR=`dirname $HOME/$REL_PATH`
 fi
 
 #
