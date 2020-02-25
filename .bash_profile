@@ -23,9 +23,6 @@ fi
 # Source individual files
 #
 
-REL_PATH=`readlink $HOME/.bash_profile`
-SRC_DIR=`dirname $HOME/$REL_PATH`
-
 source "$SRC_DIR/profile/display"
 source "$SRC_DIR/profile/docker"
 source "$SRC_DIR/profile/git"
