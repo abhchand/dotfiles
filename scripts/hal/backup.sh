@@ -17,20 +17,37 @@ fi
 
 NOW=`date "+%Y%m%d_%H%M%S"`
 LOGFILE="/tmp/${NOW}_rysnc.log"
-SOURCE_DIR="/home/abhishek/Documents/Documents/"
-TARGET_DIR="/var/data/$HOSTNAME"
-ARCHIVE_DIR="/var/data-archive/$HOSTNAME/$NOW"
 
+SOURCE_DIR="/var/data/"
+TARGET_DIR="/var/data/$(hostname)"
+
+EXCLUSIONS="$(dirname "$0")/backup_exclusions.txt"
+
+ARCHIVE_DIR="/var/data-archive/$(hostname)/$NOW"
 ARCHIVE_TTL_DAYS=100
+
+echo "Logging to $LOGFILE"
 
 echo "" >> $LOGFILE
 echo "=== Backing up $SOURCE_DIR" >> $LOGFILE
-time rsync --delete --backup --backup-dir=$ARCHIVE_DIR -atvzhP -e "ssh -p $SSH_PORT" $SOURCE_DIR $BACKUP_USER@$BACKUP_HOST:$TARGET_DIR >> $LOGFILE 2>&1
+time rsync --delete --backup --backup-dir=$ARCHIVE_DIR --exclude-from $EXCLUSIONS -atvzhP -e "ssh -p $SSH_PORT" $SOURCE_DIR $BACKUP_USER@$BACKUP_HOST:$TARGET_DIR >> $LOGFILE 2>&1
 
 # Delete older archive directories
-
-TO_BE_DELETED=`ssh $BACKUP_USER@$BACKUP_HOST -p $SSH_PORT 'find "$(dirname $ARCHIVE_DIR)/*" -type d -mtime +$ARCHIVE_TTL_DAYS -maxdepth 1'`
+# The find, print, delete command was a pain to write. Most combinations of 
+# `find... -exec {} \;` or `find .. | xargs` involved multiple layers of 
+# bash escape characters that didn't correctly print the file before deleting.
+#
+# To test this you can easily create folders with a certain modified timestamp
+# (e.g. 99 days old and 101 days old) on the remote server. Those modified
+# less than $ARCHIVE_TTL_DAYS days ago should be preserved
+#
+#   mkdir 101_days_ago
+#   touch -d "101 days ago" 101_days_ago
+#
+#   mkdir 99_days_ago
+#   touch -d "99 days ago" 99_days_ago
 
 echo "" >> $LOGFILE
-echo "=== Removing archives: $TO_BE_DELETED" >> $LOGFILE
-ssh $BACKUP_USER@$BACKUP_HOST -p $SSH_PORT 'echo $TO_BE_DELETED | xargs rm -rf'
+echo "=== Removing the following archives older than $ARCHIVE_TTL_DAYS days" >> $LOGFILE
+ssh $BACKUP_USER@$BACKUP_HOST -p $SSH_PORT "find $(dirname $ARCHIVE_DIR)/* -maxdepth 0 -type d -mtime +$ARCHIVE_TTL_DAYS -print0 | xargs -0 -I % echo \"echo %; rm -rf %\" | sh" >> $LOGFILE 2>&1
+
