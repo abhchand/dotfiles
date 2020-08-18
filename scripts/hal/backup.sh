@@ -4,6 +4,15 @@
 #
 # Archives older than $ARCHIVE_TTL_DAYS days are also deleted
 #
+# Any local files listed in $EXCLUSIONS are excluded from sync. However, they also prevent
+# remote files and directories from being deleted if they happen to be on the remote
+# server. This may result in the following rsync error:
+#
+#   cannot delete non-empty directory: foo/bar
+#
+# There are ways around this (see: https://superuser.com/q/543419) but easiest solution is
+# to manually delete the offending files from the remote servers.
+#
 # Cron Entry:
 #   > SHELL=/bin/bash
 #   > BASH_ENV=/home/abhishek/.bashrc
