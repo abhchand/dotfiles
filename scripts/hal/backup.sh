@@ -27,18 +27,21 @@ fi
 NOW=`date "+%Y%m%d_%H%M%S"`
 LOGFILE="/tmp/${NOW}_rysnc.log"
 
-SOURCE_DIR="/var/data/"
-TARGET_DIR="/var/data/$(hostname)"
+# Trailing slash on the SOURCE_DIR is important. It means to sync the
+# _contents_ of a dir, not the dir itself.
+# See: http://qdosmsq.dunbar-it.co.uk/blog/2013/02/rsync-to-slash-or-not-to-slash/
+SOURCE_DIR="/var/data/$(whoami)/"
+TARGET_DIR="/var/data/$(hostname)/$(whoami)"
 
 EXCLUSIONS="$(dirname "$0")/backup_exclusions.txt"
 
-ARCHIVE_DIR="/var/data-archive/$(hostname)/$NOW"
+ARCHIVE_DIR="/var/data-archive/$(hostname)/$(whoami)/$NOW"
 ARCHIVE_TTL_DAYS=100
 
 echo "Logging to $LOGFILE"
 
 echo "" >> $LOGFILE
-echo "=== Backing up $SOURCE_DIR" >> $LOGFILE
+echo "=== Backing up $SOURCE_DIR -> $BACKUP_USER@$BACKUP_HOST:$TARGET_DIR" >> $LOGFILE
 time rsync --delete --backup --backup-dir=$ARCHIVE_DIR --exclude-from $EXCLUSIONS -atvzhP -e "ssh -p $SSH_PORT" $SOURCE_DIR $BACKUP_USER@$BACKUP_HOST:$TARGET_DIR >> $LOGFILE 2>&1
 
 # Delete older archive directories
