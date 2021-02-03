@@ -3,5 +3,10 @@
 # Full rsync usage, for reference
 #   rsync --dry-run -avzhP -e ssh [SRC] [DEST]
 #   rsync --dry-run -avzhP -e ssh abhishek@foo.abhchand.me:/some/remote/path .
+#
+# NOTE: This does not support running ssh on non-standard ports.
+# Manually, you can do that with:
+#
+#   -e "ssh -p 8022"
 alias compare-dirs="rsync --dry-run -avzhP -e ssh"
 alias sync-dirs="rsync -avzhP -e ssh"
