@@ -40,6 +40,38 @@ ARCHIVE_TTL_DAYS=100
 
 echo "Logging to $LOGFILE"
 
+# Execute the backup with `rsync`
+#
+# Reference: definition of `rsync` flags
+#
+#   --delete        delete extraneous files from dest dirs
+#   --backup        make backups (see --suffix & --backup-dir)
+#   --backup-dir    make backups into hierarchy based in DIR
+#   --exlucde-from  read exclude patterns from FILE
+#   -e              custom command for execution
+#   a               "archive mode", equivalent to `-rlptgoD`
+#     r                 recurse into directories
+#     l                 copy symlinks as symlinks
+#     p                 preserve permissions
+#     t                 preserve modification times
+#     g                 preserve group
+#     o                 preserve owner (super-user only)
+#     D                 same as --devices --specials
+#       --devices           preserve device files (super-user only)
+#       --specials          preserve special files
+#   t               preserve modification times
+#   v               verbose
+#   z               compress file data during the transfer
+#   h               output numbers in a human-readable format
+#   P               same as --partial --progress
+#
+# The above options effectively try to preserve all information about 
+# the file (owner, permissions, etc...).
+#
+# `rsync` will also try to match up and preseve the "owner" and "group", 
+# even if they have different UID / GID on the source and target system.
+#
+# See: https://serverfault.com/a/964240/219765
 echo "" >> $LOGFILE
 echo "=== Backing up $SOURCE_DIR -> $BACKUP_USER@$BACKUP_HOST:$TARGET_DIR" >> $LOGFILE
 time rsync --delete --backup --backup-dir=$ARCHIVE_DIR --exclude-from $EXCLUSIONS -atvzhP -e "ssh -p $SSH_PORT" $SOURCE_DIR $BACKUP_USER@$BACKUP_HOST:$TARGET_DIR >> $LOGFILE 2>&1
