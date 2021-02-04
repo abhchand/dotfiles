@@ -1,4 +1,6 @@
-# Back up HAL's files to remote backup server, defined by `$BACKUP_USER@$BACKUP_HOST`.
+# Back up a specifc $PERSON's HAL files to remote backup server
+#
+# Backup will be performed by the user `$BACKUP_USER@$BACKUP_HOST`.
 #
 # Any deleted files are deleted from $TARGET_DIR, but also archived under $ARCHIVE_DIR.
 #
@@ -19,8 +21,8 @@
 #   >
 #   > 0 * * * * BACKUP_USER=... BACKUP_HOST=... SSH_PORT=... sh /path/to/this/script.sh
 
-if [ -z "$BACKUP_USER" ] || [ -z "$BACKUP_HOST" ] || [ -z "$SSH_PORT" ]; then
-  echo "Please specify all the following: BACKUP_USER, BACKUP_HOST, SSH_PORT"
+if [ -z "$PERSON" ] || [ -z "$BACKUP_USER" ] || [ -z "$BACKUP_HOST" ] || [ -z "$SSH_PORT" ]; then
+  echo "Please specify all the following: PERSON, BACKUP_USER, BACKUP_HOST, SSH_PORT"
   exit
 fi
 
@@ -30,12 +32,12 @@ LOGFILE="/tmp/${NOW}_rysnc.log"
 # Trailing slash on the SOURCE_DIR is important. It means to sync the
 # _contents_ of a dir, not the dir itself.
 # See: http://qdosmsq.dunbar-it.co.uk/blog/2013/02/rsync-to-slash-or-not-to-slash/
-SOURCE_DIR="/var/data/$(whoami)/"
-TARGET_DIR="/var/data/$(hostname)/$(whoami)"
+SOURCE_DIR="/var/data/$PERSON/"
+TARGET_DIR="/var/data/$(hostname)/$PERSON"
 
 EXCLUSIONS="$(dirname "$0")/backup_exclusions.txt"
 
-ARCHIVE_DIR="/var/data-archive/$(hostname)/$(whoami)/$NOW"
+ARCHIVE_DIR="/var/data-archive/$(hostname)/$PERSON/$NOW"
 ARCHIVE_TTL_DAYS=100
 
 echo "Logging to $LOGFILE"
