@@ -4,6 +4,16 @@
 export AWS_PROFILE="Developer"
 export AWS_DEFAULT_REGION=us-east-1
 
+function gh {
+  if [ -d "$HOME/git/callrail/$1" ]; then
+    cd $HOME/git/callrail/$1
+  fi
+
+  if [ -d "$HOME/git/abhishek/$1" ]; then
+    cd $HOME/git/abhishek/$1
+  fi
+}
+
 alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
 alias cr="cd $HOME/git/callrail/callrail"
 alias ghs="cd $HOME/git/abhishek/github-scripts"
