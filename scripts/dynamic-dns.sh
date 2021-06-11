@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# This server uses dynamic DNS to expose itself to the world as `$HOST.abhchand.me`
+# This server uses dynamic DNS to expose itself to the world as `$HOST.abhchand.me`.
+#
+# It runs for multiple values of $HOST since multiple domains can point here.
 #
 # This is done as follows:
 #
@@ -11,9 +13,13 @@
 # * The home router uses port forwarding to pass the incoming request from the external
 #   world on towards the local server.
 #   * This is configured under "port forwarding" on the router admin panel.
-#   * Specifically it forwards requests coming in from port YYYY to $HOST's port 22 (traditional
-#     ssh port).  As a side effect, that means all external traffic must use YYYY for the ssh port
-#     instead of the default 22 (e.g. `ssh -p YYYY $HOST.abhchand.me`)
+#
+#       1. SSH: It forwards requests coming in from port YYYY to $HOST's port 22 (traditional
+#         ssh port).  As a side effect, that means all external traffic must use YYYY for the ssh port
+#         instead of the default 22 (e.g. `ssh -p YYYY $HOST.abhchand.me`)
+#       2. HTTP: It blindly forwards all HTTP incoming requests to this machine. NGINX is running
+#          on this machnie, which should forward incoming requests to the right running application.
+#
 #   * As a side note, the router is also configured to reserve an internal IP for $HOST so it never
 #     changes inside the home network. That's also configured in the router admin panel
 #
