@@ -28,16 +28,17 @@ fi
 
 NOW=`date "+%Y%m%d_%H%M%S"`
 LOGFILE="/tmp/${NOW}_rysnc.log"
+HOSTNAME="$(hostname |  awk '{ print toupper($0) }')"
 
 # Trailing slash on the SOURCE_DIR is important. It means to sync the
 # _contents_ of a dir, not the dir itself.
 # See: http://qdosmsq.dunbar-it.co.uk/blog/2013/02/rsync-to-slash-or-not-to-slash/
 SOURCE_DIR="/var/data/$PERSON/"
-TARGET_DIR="/var/data/$(hostname)/$PERSON"
+TARGET_DIR="/var/data/$HOSTNAME/$PERSON"
 
 EXCLUSIONS="$(dirname "$0")/backup_exclusions.txt"
 
-ARCHIVE_DIR="/var/data-archive/$(hostname)/$PERSON/$NOW"
+ARCHIVE_DIR="/var/data-archive/$HOSTNAME/$PERSON/$NOW"
 ARCHIVE_TTL_DAYS=100
 
 echo "Logging to $LOGFILE"
