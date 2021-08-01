@@ -8,6 +8,9 @@ function changes_since {
   git diff $(git merge-base $1 HEAD)..HEAD
 }
 
+# NOTE: `git diff ` uses `diffr` to produce a better word-highlighted diff
+# See: https://github.com/mookid/diffr
+
 alias gc="git commit -a -m"
 alias gcm="git checkout master"
 alias gd="git diff"
