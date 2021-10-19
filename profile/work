@@ -1,8 +1,33 @@
 #!/usr/bin/env bash
 
 # CallRail
-export AWS_PROFILE="Developer"
-export AWS_DEFAULT_REGION=us-east-1
+export AWS_VAULT_KEYCHAIN_NAME=login
+
+function ave() {
+  aws-vault exec --duration=12h -- $@
+}
+
+function avl() {
+  aws-vault login -- $@
+}
+
+function wfh() {
+  ave cr-stage-dev bingo aws allow
+  ave cr-prod-dev bingo aws allow
+}
+
+function api_get() {
+  curl --silent -H "Authorization:Token token=1ffb9f763d218ead9761419800b71eb1" $1 | json_pp
+}
+
+alias staging-console="ave cr-stage-dev bingo ssm console callrail staging"
+alias read-console="ave cr-prod-console bingo ssm read-console"
+alias write-console="ave cr-prod-lead bingo ssm console callrail us-east-1 --role util"
+alias aws-role="echo $AWS_VAULT"
+
+# Specify with a port
+# e.g. `nk 8000`
+alias nk="~/Downloads/ngrok http --region=us --hostname=abhishek-callrail.ngrok.io"
 
 function gh {
   if [ -d "$HOME/git/callrail/$1" ]; then
