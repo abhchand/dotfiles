@@ -8,11 +8,22 @@ function changes_since {
   git diff $(git merge-base $1 HEAD)..HEAD
 }
 
+# git checkout master/main
+function gcm {
+  # Most older repos that switched from master to main may
+  # stil have a `master` branch in addition to `main`. So
+  # check explicitly for the presence of `main` first
+  if git rev-parse --quiet --verify main > /dev/null; then
+    git checkout main
+  else
+    git checkout master
+  fi
+}
+
 # NOTE: `git diff ` uses `diffr` to produce a better word-highlighted diff
 # See: https://github.com/mookid/diffr
 
 alias gc="git commit -a -m"
-alias gcm="git checkout master"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gp='git push origin $(git rev-parse --abbrev-ref HEAD)'
