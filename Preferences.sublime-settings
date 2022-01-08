@@ -43,7 +43,7 @@
 		"script",
 		"tmp"
 	],
-	"font_size": 13.0,
+	"font_size": 15.0,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -54,7 +54,7 @@
 	"line_padding_top": 0.5,
 	"new_window_settings":
 	{
-		"show_minimap": false
+		"show_minimap": false,
 	},
 	"rulers":
 	[
@@ -68,6 +68,5 @@
 	// Customize window title content
 	"show_rel_path": true,
 	"show_project_first": true,
-	"ui_scale": 1.10
+	"ui_scale": 1.1,
 }
-
