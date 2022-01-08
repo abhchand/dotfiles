@@ -35,6 +35,7 @@ source "$SRC_DIR/profile/python"
 source "$SRC_DIR/profile/redis"
 source "$SRC_DIR/profile/rsync"
 source "$SRC_DIR/profile/ruby"
+source "$SRC_DIR/profile/systemd"
 source "$SRC_DIR/profile/vim"
 source "$SRC_DIR/profile/work"
 

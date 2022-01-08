@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+alias sysup="systemctl start"
+alias sysdn="systemctl stop"
+alias sysrs="systemctl restart"
+alias sysst="systemctl status"
