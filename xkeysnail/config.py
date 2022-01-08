@@ -354,6 +354,8 @@ define_keymap(re.compile("konsole", re.IGNORECASE),{
     # Split Pane
     K("RC-D"):                  K("C-KPLEFTPAREN"), # New split pane
 
+    K("RC-Backspace"):          K("M-Backspace"),   # Delete world left of cursor
+
 }, "Terminal Bindings - Konsole")
 
 define_keymap(re.compile(termStr, re.IGNORECASE),{
