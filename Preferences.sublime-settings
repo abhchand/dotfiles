@@ -64,6 +64,9 @@
 	"tab_size": 2,
 	"theme": "Moka Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true
+	"trim_trailing_white_space_on_save": true,
+	// Customize window title content
+	"show_rel_path": true,
+	"show_project_first": true
 }
 
