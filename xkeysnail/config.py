@@ -415,6 +415,9 @@ define_keymap(lambda wm_class: wm_class.casefold() not in terminals,{
 
 define_keymap(lambda wm_class: wm_class.casefold() not in remotes,{
 
+    K("RC-Super-J"):        K("NEXTSONG"),              # Next Track
+    K("RC-Super-K"):        K("PREVIOUSSONG"),          # Previous Track
+
     # K("RC-Space"):        K("Alt-F1"),                # Default SL - Launch Application Menu (Already mapped using Ulauncher)
 
     K("RC-F3"):             K("Super-d"),               # Default SL - Show Desktop
