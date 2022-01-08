@@ -431,8 +431,8 @@ define_keymap(lambda wm_class: wm_class.casefold() not in remotes,{
     K("RC-Grave"):          K("M-Grave"),               # Default not-xfce4 - Cmd ` - Same App Switching
     K("RC-Shift-Grave"):    K("M-Shift-Grave"),         # Default not-xfce4 - Cmd ` - Same App Switching
 
-    # K("Super-Right"):     K("Super-Page_Up"),         # SL - Change workspace (ubuntu/fedora)
-    # K("Super-Left"):      K("Super-Page_Down"),       # SL - Change workspace (ubuntu/fedora)
+    K("Super-Up"):          K("Super-Page_Up"),         # SL - Change workspace (ubuntu/fedora)
+    K("Super-Down"):        K("Super-Page_Down"),       # SL - Change workspace (ubuntu/fedora)
 
     # Word and line navigation
     K("Super-a"):           K("Home"),                  # Beginning of Line
