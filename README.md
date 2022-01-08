@@ -14,3 +14,9 @@ ln -s $DOTFILES_PATH/.vim ~/vim
 ln -s $DOTFILES_PATH/.viminfo ~/.viminfo
 ln -s $DOTFILES_PATH/.vimrc ~/.vimrc
 ```
+
+After sourcing `~/.bash_profile`:
+
+```bash
+setup_vim
+```
