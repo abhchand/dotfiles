@@ -67,6 +67,7 @@
 	"trim_trailing_white_space_on_save": true,
 	// Customize window title content
 	"show_rel_path": true,
-	"show_project_first": true
+	"show_project_first": true,
+	"ui_scale": 1.10
 }
 
