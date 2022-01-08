@@ -1,0 +1,14 @@
+[Unit]
+Description=xkeysnail
+
+[Service]
+Type=simple
+KillMode=process
+ExecStart=/usr/bin/sudo /bin/bash -c '/usr/bin/xhost +SI:localuser:root && /home/abhishek/git/abhishek/dotfiles/xkeysnail/killdups.sh && /usr/local/bin/xkeysnail --quiet --watch /home/abhishek/git/abhishek/dotfiles/xkeysnail/config.py'
+ExecStop=/usr/bin/sudo /bin/bash -c '/usr/bin/sudo pkill -f bin/xkeysnail && exit 0'
+Restart=on-failure
+RestartSec=3
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical.target
