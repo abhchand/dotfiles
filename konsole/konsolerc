@@ -1,8 +1,8 @@
 [Desktop Entry]
-DefaultProfile=abhchand.profile
+DefaultProfile=abhchand-dark.profile
 
 [Favorite Profiles]
-Favorites=abhchand.profile
+Favorites=abhchand-dark.profile,abhchand-dimmed.profile
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false

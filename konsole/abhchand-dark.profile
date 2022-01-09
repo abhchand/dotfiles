@@ -1,5 +1,5 @@
 [Appearance]
-ColorScheme=Github Dark
+ColorScheme=github-dark
 Font=Hack,14,-1,5,50,0,0,0,0,0
 
 [General]
