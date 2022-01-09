@@ -1,0 +1,23 @@
+[Desktop Entry]
+DefaultProfile=abhchand.profile
+
+[Favorite Profiles]
+Favorites=abhchand.profile
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
+
+[MainWindow]
+Height 1200=1136
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAABzgAAARwAAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Width 1920=960
+Window-Maximized 1200x1920=true
+
+[TabBar]
+NewTabBehavior=PutNewTabAfterCurrentTab
+TabBarPosition=Top
+TabBarUseUserStyleSheet=true
+TabBarUserStyleSheetFile=file:///home/abhishek/git/abhishek/dotfiles/konsole/style.css
+TabBarVisibility=AlwaysShowTabBar

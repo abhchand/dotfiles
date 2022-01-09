@@ -14,6 +14,11 @@ ln -s $DOTFILES_PATH/.gitconfig ~/.gitconfig
 ln -s $DOTFILES_PATH/.vim ~/vim
 ln -s $DOTFILES_PATH/.viminfo ~/.viminfo
 ln -s $DOTFILES_PATH/.vimrc ~/.vimrc
+
+# konsole
+ln -s $DOTFILES_PATH/konsole/konsolerc ~/.config/konsolerc
+ln -s $DOTFILES_PATH/konsole/abhchand.profile $HOME/.local/share/konsole/abhchand.profile
+ln -s $DOTFILES_PATH/konsole/Github\ Dark.colorscheme $HOME/.local/share/konsole/Github\ Dark.colorscheme
 ```
 
 After sourcing `~/.bash_profile`:
