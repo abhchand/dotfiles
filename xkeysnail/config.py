@@ -351,6 +351,9 @@ define_keymap(re.compile("konsole", re.IGNORECASE),{
     K("RC-Shift-Left_Brace"):   K("Shift-Left"),    # Switch tab left
     K("RC-Shift-Right_Brace"):  K("Shift-Right"),   # Switch tab right
 
+    K("RC-Left_Brace"):         K("RC-Shift-Left"),     # Switch split pane left
+    K("RC-Right_Brace"):        K("RC-Shift-Right"),    # Switch split pane right
+
     # Split Pane
     K("RC-D"):                  K("C-KPLEFTPAREN"), # New split pane
 
