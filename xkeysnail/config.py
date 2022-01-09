@@ -142,23 +142,23 @@ define_conditional_modmap(lambda wm_class: True, {
 define_keymap(None, {
     # Move window to left half of screen
     K('RC-M-j'): [lambda : \
-                  os.system('sleep 0.10 && xdotool getactivewindow windowsize 50% 100% && xdotool getwindowfocus windowmove 0 0'
+                  os.system('sleep 0.10 && wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz && xdotool getactivewindow windowsize 50% 100% && xdotool getwindowfocus windowmove 0 0'
                   )],
     # Move window to right half of screen
     K('RC-M-l'): [lambda : \
-                  os.system('sleep 0.10 && xdotool getactivewindow windowsize 50% 100% && xdotool getwindowfocus windowmove 9999 0'
+                  os.system('sleep 0.10 && wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz && xdotool getactivewindow windowsize 50% 100% && xdotool getwindowfocus windowmove 9999 0'
                   )],
     # Move window to top half of screen
     K('RC-M-i'): [lambda : \
-                  os.system('sleep 0.10 && xdotool getactivewindow windowsize 100% 50% && xdotool getwindowfocus windowmove 0 0'
+                  os.system('sleep 0.10 && wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz && xdotool getactivewindow windowsize 100% 50% && xdotool getwindowfocus windowmove 0 0'
                   )],
     # Move window to bottom half of screen
     K('RC-M-k'): [lambda : \
-                  os.system('sleep 0.10 && xdotool getactivewindow windowsize 100% 50% && xdotool getwindowfocus windowmove 0 9999'
+                  os.system('sleep 0.10 && wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz && xdotool getactivewindow windowsize 100% 50% && xdotool getwindowfocus windowmove 0 9999'
                   )],
     # Maximize screen
     K('RC-M-m'): [lambda : \
-                  os.system('sleep 0.10 && xdotool getactivewindow windowsize 100% 100% && xdotool getwindowfocus windowmove 0 0'
+                  os.system('sleep 0.10 && wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz'
                   )],
     }, "Global Bindings - General")
 
