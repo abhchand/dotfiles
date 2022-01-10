@@ -160,6 +160,10 @@ define_keymap(None, {
     K('RC-M-m'): [lambda : \
                   os.system('sleep 0.10 && wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz'
                   )],
+    # Cycle active window to next desktop/workspace
+    K('RC-M-h'): [lambda : \
+                  os.system('sh /home/abhishek/git/abhishek/dotfiles/xkeysnail/mv_win_next_desktop.sh'
+                  )],
     }, "Global Bindings - General")
 
 
