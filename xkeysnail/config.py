@@ -364,8 +364,8 @@ define_keymap(re.compile("konsole", re.IGNORECASE),{
     K("RC-Backspace"):          K("M-Backspace"),   # Delete world left of cursor
 
     # Navigate history
-    K("RC-J"):                  K("Up"),            # Previous command history
-    K("RC-K"):                  K("Down"),          # Next command history
+    K("RC-K"):                  K("Up"),            # Previous command history
+    K("RC-J"):                  K("Down"),          # Next command history
 
 }, "Terminal Bindings - Konsole")
 
