@@ -2,7 +2,7 @@
 DefaultProfile=abhchand-dark.profile
 
 [Favorite Profiles]
-Favorites=abhchand-dark.profile,abhchand-dimmed.profile
+Favorites=abhchand-dimmed.profile,abhchand-dark.profile
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false
