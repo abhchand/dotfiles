@@ -164,6 +164,10 @@ define_keymap(None, {
     K('RC-M-h'): [lambda : \
                   os.system('sh /home/abhishek/git/abhishek/dotfiles/xkeysnail/mv_win_next_desktop.sh'
                   )],
+    # Cycle all windows of active application to next desktop/workspace
+    K('RC-M-Shift-h'): [lambda : \
+                  os.system('sh /home/abhishek/git/abhishek/dotfiles/xkeysnail/mv_app_next_desktop.sh'
+                  )],
     }, "Global Bindings - General")
 
 
