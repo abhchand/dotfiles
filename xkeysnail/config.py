@@ -425,7 +425,7 @@ define_keymap(re.compile(termStr, re.IGNORECASE),{
 ############################################
 
 define_keymap(lambda wm_class: wm_class.casefold() not in terminals,{
-    K("RC-Dot"): K("Esc"),                              # Mimic macOS Cmd+dot = Escape key (not in terminals)
+    # K("RC-Dot"): K("Esc"),                              # Cmd+dot = Escape key. Interferes with 1Password in browsers
 }, "Global Fallbacks - non-Terminals")
 
 define_keymap(lambda wm_class: wm_class.casefold() not in remotes,{
