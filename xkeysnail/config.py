@@ -313,6 +313,11 @@ define_keymap(re.compile("Ulauncher", re.IGNORECASE),{
     K("RC-z"):          K("M-z"),
 }, "Application Bindings - Ulauncher")
 
+define_keymap(re.compile("Slack", re.IGNORECASE),{
+    K("RC-Shift-Left_Brace"):  K("M-Left"),     # Go back in history
+    K("RC-Shift-Right_Brace"): K("M-Right"),    # Go forward in history
+}, "Application Bindings - Slack")
+
 define_keymap(re.compile("Sublime_text", re.IGNORECASE),{
     # K("Super-Space"):        K("C-Space"),         # Basic code completion
     K("Super-RC-f"):           K("F11"),             # toggle_full_screen
