@@ -109,32 +109,6 @@ define_conditional_modmap(lambda wm_class: True, {
 
     })
 
-# Terminal modmap
-
-# define_conditional_modmap(re.compile(termStr, re.IGNORECASE), {
-
-#     # Mac/Win Keyboard Layout
-#     #
-#     #  [LCTRL]  [FN] [LMETA]  [LALT]   [   SPACE   ]  [RALT]   [RCTRL]  # Physical
-#     #  ---------------------------------------------------------------
-#     #  [LCTRL]  [FN] [LALT]   [RCTRL]  [   SPACE   ]  [RCTRL]  [LCTRL]  # Mapped
-
-#     Key.LEFT_CTRL:  Key.LEFT_CTRL,
-#     Key.LEFT_META:  Key.LEFT_ALT,
-#     Key.LEFT_ALT:   Key.RIGHT_CTRL,
-#     Key.RIGHT_ALT:  Key.RIGHT_CTRL,
-#     Key.RIGHT_META: Key.RIGHT_ALT,
-#     Key.RIGHT_CTRL: Key.LEFT_CTRL,
-
-#     # Mac-only Keyboard Layout
-
-#     # Key.LEFT_META:  Key.RIGHT_CTRL,
-#     # Key.LEFT_CTRL:  Key.LEFT_CTRL,
-#     # Key.RIGHT_META: Key.RIGHT_CTRL,
-#     # Key.RIGHT_CTRL: Key.LEFT_CTRL,
-
-#     })
-
 ##############################################
 ### GLOBAL BINDINGS ##########################
 ##############################################
