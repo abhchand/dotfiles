@@ -294,8 +294,8 @@ define_keymap(re.compile("Ulauncher", re.IGNORECASE),{
 }, "Application Bindings - Ulauncher")
 
 define_keymap(re.compile("Slack", re.IGNORECASE),{
-    K("RC-Shift-Left_Brace"):  K("M-Left"),     # Go back in history
-    K("RC-Shift-Right_Brace"): K("M-Right"),    # Go forward in history
+    K("RC-Left_Brace"):     K("M-Left"),     # Go back in history
+    K("RC-Right_Brace"):    K("M-Right"),    # Go forward in history
 }, "Application Bindings - Slack")
 
 define_keymap(re.compile("Sublime_text", re.IGNORECASE),{
