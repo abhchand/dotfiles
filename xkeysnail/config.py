@@ -434,13 +434,19 @@ define_keymap(lambda wm_class: wm_class.casefold() not in remotes,{
     K("Super-Up"):          K("Super-Page_Up"),         # SL - Change workspace (ubuntu/fedora)
     K("Super-Down"):        K("Super-Page_Down"),       # SL - Change workspace (ubuntu/fedora)
 
-    # Word and line navigation
+    # Line navigation
     K("Super-a"):           K("Home"),                  # Beginning of Line
     K("Super-e"):           K("End"),                   # End of Line
     K("RC-Left"):           K("Home"),                  # Beginning of Line
     K("RC-Right"):          K("End"),                   # End of Line
     K("RC-Shift-Left"):     K("Shift-Home"),            # Select all to Beginning of Line
     K("RC-Shift-Right"):    K("Shift-End"),             # Select all to End of Line
+
+    # Word navigation
+    K("M-Left"):            K("RC-Left"),               # Move to prev word
+    K("M-Right"):           K("RC-Right"),              # Move to next word
+    K("M-Shift-Left"):      K("RC-Shift-Left"),         # Select prev word
+    K("M-Shift-Right"):     K("RC-Shift-Right"),        # Select next word
 
     K("RC-Up"):             K("C-Home"),                # Beginning of File
     K("RC-Down"):           K("C-End"),                 # End of File
