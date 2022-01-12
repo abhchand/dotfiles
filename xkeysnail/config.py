@@ -347,14 +347,22 @@ define_keymap(re.compile("konsole", re.IGNORECASE),{
     K("RC-Left_Brace"):         K("RC-Shift-Left"),     # Switch split pane left
     K("RC-Right_Brace"):        K("RC-Shift-Right"),    # Switch split pane right
 
+    K("RC-R"):                  K("RC-L"),              # Clear screen (since "RC-L" is remapped below)
+
     # Split Pane
     K("RC-D"):                  K("C-KPLEFTPAREN"), # New split pane
 
     K("RC-Backspace"):          K("M-Backspace"),   # Delete world left of cursor
 
     # Navigate history
-    K("RC-K"):                  K("Up"),            # Previous command history
-    K("RC-J"):                  K("Down"),          # Next command history
+    K("RC-I"):                  K("Up"),            # Previous command history
+    K("RC-K"):                  K("Down"),          # Next command history
+
+    # Navigate words and lines
+    K("RC-J"):                  K("RC-Left"),       # Move to prev word
+    K("RC-L"):                  K("RC-Right"),      # Move to prev word
+    K("RC-Shift-J"):            K("Home"),          # Move to start of line
+    K("RC-Shift-L"):            K("End"),           # Move to end of line
 
 }, "Terminal Bindings - Konsole")
 
