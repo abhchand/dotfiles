@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+alias kc="kubectl"
+alias mku="minikube"
+
+function kcls {
+  echo -e "\033[1;33mkubectl get deployments,services,pods\033[0m"
+  echo ""
+
+  kubectl get deployments,services,pods
+}
