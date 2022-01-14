@@ -85,7 +85,7 @@ chromeStr = '|'.join(str('^' + x + '$') for x in chromes)
 
 # Global modemap
 
-define_conditional_modmap(lambda wm_class: True, {
+define_conditional_modmap(lambda wm_class, device: device == 'AT Translated Set 2 keyboard', {
 
     # Built-In Keyboard Layout
     #
@@ -100,18 +100,22 @@ define_conditional_modmap(lambda wm_class: True, {
     Key.RIGHT_CTRL: Key.RIGHT_META,
     Key.RIGHT_META: Key.RIGHT_ALT,      # Unused
 
+    })
+
+define_conditional_modmap(lambda wm_class, device: device == 'Kinesis KB800MB-BT Keyboard', {
+
     # Kinesis Keyboard Layout
     #
     #  [LCTRL]  [LALT]   [LMETA]  [   SPACE   ]  [RMETA]  [RALT]   # Physical
     #  ----------------------------------------------------------
     #  [LMETA]  [LALT]   [RCTRL]  [   SPACE   ]  [RCTRL]  [RMETA]  # Mapped
 
-    # Key.LEFT_CTRL:  Key.LEFT_META,
-    # Key.LEFT_ALT:   Key.LEFT_ALT,
-    # Key.LEFT_META:  Key.RIGHT_CTRL,
-    # Key.RIGHT_META: Key.RIGHT_CTRL,
-    # Key.RIGHT_ALT:  Key.RIGHT_META,
-    # Key.RIGHT_CTRL: Key.RIGHT_META,     # Unused
+    Key.LEFT_CTRL:  Key.LEFT_META,
+    Key.LEFT_ALT:   Key.LEFT_ALT,
+    Key.LEFT_META:  Key.RIGHT_CTRL,
+    Key.RIGHT_META: Key.RIGHT_CTRL,
+    Key.RIGHT_ALT:  Key.RIGHT_META,
+    Key.RIGHT_CTRL: Key.RIGHT_META,     # Unused
 
     })
 
