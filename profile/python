@@ -5,8 +5,8 @@ export FLASK_DEBUG=1
 
 PATH=$PYENV_ROOT/bin:$PATH
 
-alias json="python -mjson.tool"
-alias pss="python -m SimpleHTTPServer"
+alias json="python3 -mjson.tool"
+alias pss="python3 -m http.server"
 
 # Initialize pyenv
 [ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
