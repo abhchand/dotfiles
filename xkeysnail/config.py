@@ -355,6 +355,10 @@ define_keymap(re.compile("Ulauncher", re.IGNORECASE),{
     K("RC-z"):          K("M-z"),
 }, "Application Bindings - Ulauncher")
 
+define_keymap(re.compile("Simplenote", re.IGNORECASE),{
+    K("RC-Backspace"):      [K("Shift-Home"),K("Backspace")],   # Delete Entire Line Left of Cursor
+}, "Application Bindings - Simplenote")
+
 define_keymap(re.compile("Slack", re.IGNORECASE),{
     K("RC-Left_Brace"):     K("M-Left"),     # Go back in history
     K("RC-Right_Brace"):    K("M-Right"),    # Go forward in history
