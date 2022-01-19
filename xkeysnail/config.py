@@ -416,6 +416,9 @@ define_keymap(re.compile("konsole", re.IGNORECASE),{
     K("RC-R"): [
         K("C"),K("L"),K("E"),K("A"),K("R"),K("Enter")], # Clear screen
 
+    K("RC-O"):                  K("RC-L"),              # Re-map CTRL-O -> CTRL-L, since the latter
+                                                        # is used for something else below.
+                                                        # CTRL-L is often needed in vim to move panes
     # Split Pane
     K("RC-D"):                  K("C-KPLEFTPAREN"), # New split pane
 
