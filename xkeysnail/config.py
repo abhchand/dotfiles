@@ -413,7 +413,8 @@ define_keymap(re.compile("konsole", re.IGNORECASE),{
     K("RC-Left_Brace"):         K("RC-Shift-Left"),     # Switch split pane left
     K("RC-Right_Brace"):        K("RC-Shift-Right"),    # Switch split pane right
 
-    K("RC-R"):                  K("RC-L"),              # Clear screen (since "RC-L" is remapped below)
+    K("RC-R"): [
+        K("C"),K("L"),K("E"),K("A"),K("R"),K("Enter")], # Clear screen
 
     # Split Pane
     K("RC-D"):                  K("C-KPLEFTPAREN"), # New split pane
