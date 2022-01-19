@@ -78,10 +78,68 @@ chromes = ['Chromium', 'Chromium-browser', 'Google-chrome']
 chromes = [chrome.casefold() for chrome in chromes]
 chromeStr = '|'.join(str('^' + x + '$') for x in chromes)
 
+# Electron Apps
+electrons = ['Slack', 'Simplenote']
+electrons = [e.casefold() for e in electrons]
+electronStr = '|'.join(str('^' + x + '$') for x in electrons)
+electronRegex = re.compile(electronStr, re.IGNORECASE)
+
 
 ##############################################
 ### MODE MAPS ################################
 ##############################################
+
+
+# Electron apps use `alt` to toggle display of the menu, and it's difficult
+# to natively override. Instead we have to use `CTRL` for word navigation
+#
+#   Issue: https://github.com/electron/electron/issues/28088
+#   "Fix" in 13.1.0: https://www.electronjs.org/releases/stable?version=13&page=5
+#
+# The fix was for Alt+Shift, but points to where the issue actually is. Any other
+# combination of keys, Atl+<key> still triggers the menu display.
+#
+# For this reason we override the keymapping on Electron apps to just remove
+# the ALT key entirely.
+
+define_conditional_modmap(lambda wm_class, device: electronRegex.match(wm_class) and device == 'AT Translated Set 2 keyboard', {
+
+    # Built-In Keyboard Layout
+    #
+    # Note the Mapped LALT key in the global layout is replaced by LCTRL here
+    #
+    #  [LCTRL]  [FN] [LMETA]  [LALT]   [   SPACE   ]  [RALT]   [RCTRL]  # Physical
+    #  ---------------------------------------------------------------
+    #  [LMETA]  [FN] [LCTRL]  [RCTRL]  [   SPACE   ]  [RCTRL]  [RMETA]  # Mapped
+
+    Key.LEFT_CTRL:  Key.LEFT_META,
+    Key.LEFT_META:  Key.LEFT_CTRL,
+    Key.LEFT_ALT:   Key.RIGHT_CTRL,
+    Key.RIGHT_ALT:  Key.RIGHT_CTRL,
+    Key.RIGHT_CTRL: Key.RIGHT_META,
+    Key.RIGHT_META: Key.RIGHT_ALT,      # Unused
+
+    })
+
+define_conditional_modmap(lambda wm_class, device: electronRegex.match(wm_class) and device == 'Kinesis KB800MB-BT Keyboard', {
+
+    # Kinesis Keyboard Layout
+    #
+    # Note the Mapped LALT key in the global layout is replaced by LCTRL here
+    #
+    #  [LCTRL]  [LALT]   [LMETA]  [   SPACE   ]  [RMETA]  [RALT]   # Physical
+    #  ----------------------------------------------------------
+    #  [LMETA]  [LCTRL]  [RCTRL]  [   SPACE   ]  [RCTRL]  [RMETA]  # Mapped
+
+    Key.LEFT_CTRL:  Key.LEFT_META,
+    Key.LEFT_ALT:   Key.LEFT_CTRL,
+    Key.LEFT_META:  Key.RIGHT_CTRL,
+    Key.RIGHT_META: Key.RIGHT_CTRL,
+    Key.RIGHT_ALT:  Key.RIGHT_META,
+    Key.RIGHT_CTRL: Key.RIGHT_META,     # Unused
+
+    })
+
 
 # Global modemap
 
