@@ -1,20 +1,38 @@
 #!/usr/bin/env bash
 
-# === Postgres 14
+# === Postgres 14 (OSX)
 #
-# After upgrading postgres via homebrew:
+# Install:
 #
-#   brew services stop postgresql && pg-stop
-#   rm -rf /usr/local/var/postgres*                      # Removes all old data
-#   initdb --locale=C -E UTF-8 /usr/local/var/postgres   # Initialize new data folder
-#   <Update version in commands below>
-#   sbp
-#   pg-start
-#   /usr/local/opt/postgresql/bin/createuser -s postgres # Create new role/user
+#   After upgrading postgres via homebrew:
 #
-#   Log in with `psql -U postgres`
-export PATH=$PATH://usr/local/opt/postgresql@14/bin
-alias pg-start="pg_ctl -D /usr/local/var/postgres start"
-alias pg-stop="pg_ctl -D /usr/local/var/postgres stop"
+#     brew services stop postgresql && pg-stop
+#     rm -rf /usr/local/var/postgres*                      # Removes all old data
+#     initdb --locale=C -E UTF-8 /usr/local/var/postgres   # Initialize new data folder
+#     <Update version in commands below>
+#     sbp
+#     pg-start
+#     /usr/local/opt/postgresql/bin/createuser -s postgres # Create new role/user
+#
+#     Log in with `psql -U postgres`
+#
+# Notes:
+#   Find the data directory: psql -U postgres -c "SHOW data_directory;"
 
-export PATH
+if [[ "$platform" == 'mac' ]]; then
+  export PATH=$PATH://usr/local/opt/postgresql@14/bin
+  alias pg-start="pg_ctl -D /usr/local/var/postgres start"
+  alias pg-stop="pg_ctl -D /usr/local/var/postgres stop"
+
+  export PATH
+fi
+
+# === Postgres 12 SETUP (Ubuntu)
+#
+# Install:
+#   sudo apt install postgresql-common
+
+if [[ "$platform" == 'linux' ]]; then
+  alias pg-start="systemctl start postgresql"
+  alias pg-stop="systemctl stop postgresql"
+fi
