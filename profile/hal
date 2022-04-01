@@ -8,3 +8,5 @@ mnthal() (
 umnthal() {
   sudo umount -f /Users/Shared/halmount
 }
+
+alias hal="ssh abhishek@192.168.0.18"
