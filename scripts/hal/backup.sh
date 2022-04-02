@@ -26,8 +26,8 @@ if [ -z "$PERSON" ] || [ -z "$BACKUP_USER" ] || [ -z "$BACKUP_HOST" ] || [ -z "$
   exit
 fi
 
-NOW=`date "+%Y%m%d_%H%M%S"`
-LOGFILE="/tmp/${NOW}_rysnc.log"
+NOW=`date "+%Y-%m-%d_%H%M%S"`
+LOGFILE="/tmp/${NOW}_${PERSON}_rysnc.log"
 HOSTNAME="$(hostname |  awk '{ print toupper($0) }')"
 
 # Trailing slash on the SOURCE_DIR is important. It means to sync the
