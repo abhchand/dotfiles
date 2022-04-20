@@ -9,3 +9,9 @@ function kcls {
 
   kubectl get deployments,services,pods
 }
+
+# Provide context on current kubernetes cluster + namespace
+source "$SRC_DIR/scripts/kube_ps1"
+function kubeami {
+  kube_ps1
+}
