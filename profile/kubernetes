@@ -3,6 +3,14 @@
 alias kc="kubectl"
 alias mku="minikube"
 
+# Use Kubernetes Namespace
+#   ukn staging
+#   ukn default
+function ukn() {
+  echo "Setting current kubernetes namespace to '$1'"
+  kubectl config set-context --current --namespace=$1
+}
+
 function kubernetes_context() {
   if [[ -z "$AWS_VAULT" ]]; then
      return
