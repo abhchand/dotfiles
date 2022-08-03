@@ -3,6 +3,34 @@
 alias kc="kubectl"
 alias mku="minikube"
 
+function kubernetes_context() {
+  if [[ -z "$AWS_VAULT" ]]; then
+     return
+  fi
+
+  KUBE_CONTEXT=$(kubectl config current-context)
+  KUBE_NAMESPACE=$(kubectl config view --minify -o jsonpath='{..namespace}')
+
+  YELLOW="\033[0;33m"
+  GREEN="\033[0;32m"
+  RED="\033[0;31m"
+  PURPLE_BOLD="\033[01;35m"
+  BLUE="\033[0;34m"
+  RESET_COLOR="\033[00m"
+
+  if [[ -z "$KUBE_NAMESPACE" ]]; then
+     KUBE_NAMESPACE='default'
+  fi
+
+  if [[ "$KUBE_CONTEXT" == "prod" ]]; then
+    CONTEXT_COLOR=$RED
+  else
+    CONTEXT_COLOR=$YELLOW
+  fi
+
+  echo -e "(${PURPLE_BOLD}$AWS_VAULT${RESET_COLOR} ⚓${CONTEXT_COLOR}$KUBE_CONTEXT${RESET_COLOR}:${GREEN}$KUBE_NAMESPACE${RESET_COLOR})"
+}
+
 # Provide context on current kubernetes cluster + namespace
 source "$SRC_DIR/scripts/kube_ps1"
 function kubeami {

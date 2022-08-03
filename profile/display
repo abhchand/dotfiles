@@ -23,4 +23,4 @@ elif [[ "$platform" == 'mac' ]]; then
   BOLD_COLOR=$GREEN_BOLD
 fi
 
-export PS1="${BOLD_COLOR}\u@\h${RESET_COLOR}:${BLUE}\w${RESET_COLOR} ${YELLOW}\$(parse_git_branch)${GREEN} $ ${RESET_COLOR}"
+export PS1="${BOLD_COLOR}\u@\h${RESET_COLOR}:${BLUE}\w${RESET_COLOR} ${YELLOW}\$(parse_git_branch)${GREEN} \$(kubernetes_context) $ ${RESET_COLOR}"
