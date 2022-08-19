@@ -44,7 +44,7 @@ alias cr="cd $HOME/git/callrail/callrail"
 alias ghs="cd $HOME/git/abhishek/github-scripts"
 
 # Kubernetes
-alias wp="watch -n3 'kubectl -n abhchand get pods'"
+alias wp="watch -n3 'kubectl get pods'"
 alias wp-staging="watch -n3 'kubectl -n staging get pods | grep inti'"
 alias wp-prod="watch -n3 'kubectl -n prod get pods | grep inti'"
 alias goprod="kubectl config use-context prod"
