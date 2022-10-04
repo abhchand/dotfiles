@@ -17,6 +17,25 @@ clear() (
    command clear -x
 )
 
+function encrypt_file {
+  if [ -z "$1" ]; then
+    echo "Usage: encode_file FILE KEY"
+    return
+  fi
+
+  cat $1 | openssl aes-256-cbc -a -pbkdf2 -salt -pass pass:$2 > "$1.enc"
+  echo "Created $1.enc"
+}
+
+function decrypt_file {
+  if [ -z "$1" ]; then
+    echo "Usage: decode ENCRYPTED_FILE KEY"
+    return
+  fi
+
+  cat $1 | openssl aes-256-cbc -d -a -pbkdf2 -pass pass:$2
+}
+
 # Stylelint all changes since `ref`
 function stylelint_all_since {
   for FILE in $(git diff $(git merge-base $1 HEAD)..HEAD --name-only | grep scss)
