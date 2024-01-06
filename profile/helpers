@@ -94,6 +94,9 @@ function thumbify {
   convert $FILEPATH -auto-orient -thumbnail $SIZEx$SIZE -unsharp 0x.5 $thumbname
 }
 
+# Show the weather
+alias forecast="curl wttr.in/dunwoody"
+
 # Show the Wi-Fi login and QA code
 alias wifi="nmcli dev wifi show-password"
 
