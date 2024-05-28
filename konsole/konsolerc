@@ -1,8 +1,8 @@
 [Desktop Entry]
-DefaultProfile=abhchand-dark.profile
+DefaultProfile=
 
 [Favorite Profiles]
-Favorites=abhchand-dimmed.profile,abhchand-dark.profile
+Favorites=
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false
@@ -14,6 +14,7 @@ State=AAAA/wAAAAD9AAAAAAAABzgAAARwAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1920=960
 Window-Maximized 1200x1920=true
+Window-Maximized 1440x2560=true
 
 [TabBar]
 NewTabBehavior=PutNewTabAfterCurrentTab

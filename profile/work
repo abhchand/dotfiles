@@ -39,6 +39,27 @@ function gh {
   fi
 }
 
+# Looky configuration
+function looky_local() {
+  yarn tools config set crDevHost callrail.test
+  yarn tools config set crDevProtocol http
+}
+
+function looky_remote() {
+  yarn tools config set crDevHost app.staging-callrail.com
+  yarn tools config set crDevProtocol https
+}
+
+function looky_qa6() {
+  yarn tools config set crDevHost mount-wario.qa-callrail.com
+  yarn tools config set crDevProtocol https
+}
+
+function looky_namespace() {
+  yarn tools config set crDevHost app.abhchand.eks.staging-callrail.com
+  yarn tools config set crDevProtocol https
+}
+
 alias rp="touch tmp/restart.txt ; echo 'restarted pow server'"
 alias cr="cd $HOME/git/callrail/callrail"
 alias ghs="cd $HOME/git/abhishek/github-scripts"

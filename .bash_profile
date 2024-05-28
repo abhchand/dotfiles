@@ -40,6 +40,7 @@ source "$SRC_DIR/profile/ruby"
 source "$SRC_DIR/profile/systemd"
 source "$SRC_DIR/profile/vim"
 source "$SRC_DIR/profile/work"
+source "$HOME/.dockercfg"
 
 #
 # General Aliases

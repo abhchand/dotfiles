@@ -30,6 +30,7 @@ alias gp='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gs="git status"
 alias gss="git stash show -p"
 alias gsl="git stash list"
+alias gsst='git stash -- $(git diff --staged --name-only)'
 alias gcp="git cherry-pick"
 alias lol="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias lola="git log --graph --decorate --pretty=oneline --abbrev-commit --all"
