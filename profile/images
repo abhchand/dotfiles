@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 
 # Convert *all* HEIF in a directory to JPG
-# If needed, download `heif-convert` and the `libheif` toolset:
+#
+# Download `heif-convert` and the `libheif-examples` toolset:
 #   sudo apt install libheif-examples
+#
+# The official ubuntu version can be behind the custom version published by
+# the repo owners: https://launchpad.net/~strukturag/+archive/ubuntu/libheif
+#
+# In particular, this issue was fixed in 1.19.x in late 2024 that's required
+# for `tmap` images
+# https://github.com/strukturag/libheif/issues/1190
+#
+# Install from PPA
+#
+# $ sudo add-apt-repository ppa:strukturag/libheif
+# $ sudo add-apt-repository ppa:strukturag/libde265
+# $ sudo apt update
+# $ sudo apt install libheif-examples
 function all_heif2jpg {
   YELLOW='\033[0;33m'
   NOCOLOR='\033[0m'
