@@ -1,0 +1,21 @@
+# Convert *all* HEIF in a directory to JPG
+# If needed, download `heif-convert` and the `libheif` toolset:
+#   sudo apt install libheif-examples
+function all_heif2jpg {
+  YELLOW='\033[0;33m'
+  NOCOLOR='\033[0m'
+
+  for file in *.HEIC
+  do 
+    echo -e "${YELLOW}# $file${NOCOLOR}"
+
+    basename=${file%.*}
+    # -q 100 is lossless, but file size is huge
+    # -q 80 is good enough for majority of display needs
+    heif-convert -q 80 "$file" "$basename.JPG"
+    rm "$basename-depth.JPG"
+
+    # Set timestamp of new file to be timestamp of old file
+    touch -r $file "$basename.JPG"
+  done
+}
