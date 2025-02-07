@@ -31,11 +31,16 @@ function all_heif2jpg {
     # -q 80 is good enough for majority of display needs
     heif-convert -q 80 "$file" "$basename.JPG"
 
-    # Remove the depth file it generates
+    # Sometimes the above outputs .JPG and sometimes .jpg
+    # So account for both
+
+    # Remove the depth files it generates
     [ -e "$basename-depth.JPG" ] && rm "$basename-depth.JPG"
+    [ -e "$basename-depth.jpg" ] && rm "$basename-depth.jpg"
 
     # Set timestamp of new file to be timestamp of old file
-    touch -r $file "$basename.JPG"
+    [ -e "$basename.JPG" ] && touch -r $file "$basename.JPG"
+    [ -e "$basename.jpg" ] && touch -r $file "$basename.jpg"
   done
 
   echo "Extensions:"
