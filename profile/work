@@ -16,10 +16,6 @@ function wfh() {
   ave cr-prod-dev bingo aws allow
 }
 
-function api_get() {
-  curl --silent -H "Authorization:Token token=1ffb9f763d218ead9761419800b71eb1" $1 | json_pp
-}
-
 alias staging-console="ave cr-stage-dev bingo ssm console callrail staging"
 alias read-console="ave cr-prod-console bingo ssm read-console"
 alias write-console="ave cr-prod-lead bingo ssm console callrail us-east-1 --role util"
