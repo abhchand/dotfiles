@@ -1,24 +1,42 @@
 #!/usr/bin/env bash
 
-# RSpec - run all changes since `branch`
-function run_changed_specs {
-  arg=$1
-  branch=${arg:-master}
+# RSpec - run all changed specs on this branch
+run_changed_specs() {
+  # Runs every spec file under spec/ that has been modified or staged in the
+  # local git branch (any uncommitted change relative to HEAD).
+  #
+  #   - Deleted files are excluded.
+  #   - Renamed files are run under their new name.
+  #   - Excludes factories, spec_helper.rb, rails_helper.rb, and spec/support/*.
 
-  files=$(git diff $branch..HEAD --name-only | grep spec | grep -v factories | grep -v spec_helper.rb | grep -v spec/support)
+  # `git diff HEAD` reports both staged and unstaged changes. `--diff-filter=d`
+  # (lowercase) drops deletions. Renames resolve to the new path, so a renamed
+  # file is picked up under its new name and the old name is ignored.
+  local specs
+  specs=$(
+    git diff --name-only --diff-filter=d HEAD -- 'spec/' \
+      | grep -Ev 'factories|spec_helper\.rb|rails_helper\.rb|^spec/support' \
+      || true
+  )
 
-  echo "==="
-  echo "Running files changed since $branch:"
-  echo $files
-  echo ""
+  if [ -z "$specs" ]; then
+    echo "No changed spec files to run."
+    return 0
+  fi
 
-  rspec $(echo $files | tr '\n' ' ')
+  echo "Running changed specs:"
+  echo "$specs" | sed 's/^/  - /'
+  echo
+
+  # shellcheck disable=SC2086
+  bundle exec rspec $specs
 }
 
 PATH=$PATH:$HOME/.rvm/bin
 
 alias rgl="rvm gemset list"
 alias rgu="rvm gemset use"
+alias use="rvm use && nvm use"
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
