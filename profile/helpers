@@ -94,6 +94,40 @@ function thumbify {
   convert $FILEPATH -auto-orient -thumbnail $SIZEx$SIZE -unsharp 0x.5 $thumbname
 }
 
+function list_extensions() {
+  local insensitive=0
+
+  case "$1" in
+      -h|--help)
+          cat <<'EOF'
+Usage: list_extensions [1]
+
+Count files in the current directory by extension, most common first.
+Dotfiles (e.g. .bashrc) and files without an extension are skipped.
+For multi-dot names like archive.tar.gz, only the last part (gz) counts.
+
+Options:
+  (none)     Case-sensitive: jpg and JPG are counted separately (default)
+  1          Case-insensitive: jpg and JPG are merged (shown lowercase)
+  -h, --help Show this help and exit
+EOF
+          return 0
+          ;;
+      "")  ;;
+      1)   insensitive=1 ;;
+      *)
+          echo "list_extensions: invalid argument '$1'" >&2
+          echo "Try 'list_extensions --help' for usage." >&2
+          return 1
+          ;;
+  esac
+
+  find . -maxdepth 1 -type f ! -name '.*' -name '*.*' \
+      | sed 's|.*/||; s/.*\.//' \
+      | if [ "$insensitive" -eq 1 ]; then tr '[:upper:]' '[:lower:]'; else cat; fi \
+      | sort | uniq -c | sort -rn
+}
+
 # Show the weather
 alias forecast="curl wttr.in/dunwoody"
 
